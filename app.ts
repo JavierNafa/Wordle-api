@@ -2,6 +2,7 @@ import express, { Express, urlencoded, json, Request, Response } from 'express';
 import { expressCors } from './src/middlewares/cors';
 import { index } from './src/routes/index';
 import errorHandler from './src/middlewares/errorHandler';
+import { checkToken } from './src/middlewares/security';
 
 
 export default () => {
@@ -18,6 +19,8 @@ export default () => {
     }));
     app.get('/', (req: Request, res: Response) => { return res.send("hello world") });
     app.use('/user', index.user);
+    app.use('/auth', index.auth);
+    app.use('*', checkToken);
 
     app.use(errorHandler);
     return app;

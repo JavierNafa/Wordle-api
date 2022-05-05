@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, Index } from "typeorm";
-
+import { Entity, PrimaryGeneratedColumn, Column, Index, OneToMany } from "typeorm";
+import { Round } from './round';
 
 @Entity('users')
 export class User {
@@ -19,4 +19,7 @@ export class User {
 
     @Column({ type: 'varchar', name: 'last_name' })
     lastName: string;
+
+    @OneToMany(() => Round, round => round.user)
+    round: Round[];
 }

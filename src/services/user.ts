@@ -5,7 +5,7 @@ import { IUser } from '../models/user';
 
 const userRepository = dataSource.getRepository(User);
 
-export async function create(user: IUser) {
+export async function register(user: IUser) {
 
     const exist: User = await userRepository.findOne({ where: { username: user.username } });
     if (exist) return null;
