@@ -8,5 +8,5 @@ const postRegister: Joi.ObjectSchema = Joi.object().keys({
 });
 
 export const userSchema = {
-    'POST/user/register': postRegister
+    'POST/users/register': postRegister
 }

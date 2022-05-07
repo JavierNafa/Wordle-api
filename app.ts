@@ -18,9 +18,10 @@ export default () => {
         limit: '5mb'
     }));
     app.get('/', (req: Request, res: Response) => { return res.send("hello world") });
-    app.use('/user', index.user);
+    app.use('/users', index.user);
     app.use('/auth', index.auth);
     app.use('*', checkToken);
+    app.use('/rounds', index.round);
 
     app.use(errorHandler);
     return app;

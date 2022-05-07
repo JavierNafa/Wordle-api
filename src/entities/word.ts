@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, Index } from "typeorm";
-
+import { Entity, PrimaryGeneratedColumn, Column, Index, OneToMany } from "typeorm";
+import { Round } from './round';
 
 @Entity('words')
 export class Word {
@@ -14,4 +14,7 @@ export class Word {
     @Index()
     @Column({ type: 'int' })
     length: number;
+
+    @OneToMany(() => Round, round => round.word)
+    rounds: Round[];
 }

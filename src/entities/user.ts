@@ -21,5 +21,5 @@ export class User {
     lastName: string;
 
     @OneToMany(() => Round, round => round.user)
-    round: Round[];
+    rounds: Round[];
 }

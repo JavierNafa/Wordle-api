@@ -10,7 +10,7 @@ export async function postRegister(req: Request, res: Response, next: NextFuncti
         if (result) {
             return res.status(201).send({ success: true, data: result, message: 'OK' });
         }
-        return res.status(400).send({ success: false, data: null, message: 'This username already exists' });
+        return next(new StatusResponseError(400, 'Username already exist, are you trying to hack someone?'));
 
     } catch (err) {
         return next(new StatusResponseError(400, err.message, null));
