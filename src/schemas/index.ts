@@ -1,9 +1,11 @@
 import { userSchema } from './user';
 import { authSchema } from './auth';
 import { roundSchema } from './round';
+import { statsSchema } from './stats';
 
 export const indexSchema = {
-    '/user': userSchema,
+    '/users': userSchema,
     '/auth': authSchema,
-    '/rounds': roundSchema
+    '/rounds': roundSchema,
+    '/stats': statsSchema
 }

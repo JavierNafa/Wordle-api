@@ -22,6 +22,7 @@ export default () => {
     app.use('/auth', index.auth);
     app.use('*', checkToken);
     app.use('/rounds', index.round);
+    app.use('/stats', index.stats);
 
     app.use(errorHandler);
     return app;
