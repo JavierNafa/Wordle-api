@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getStatsByUser, getStats } from '../controllers/stats';
+import { getStatsByUser, getStats, getAcurrateWords } from '../controllers/stats';
 import schemaValidator from '../middlewares/schemaValidator';
 
 const router: Router = Router();
@@ -7,6 +7,7 @@ const router: Router = Router();
 export function statsRouter() {
 
     router.get('/users/:uuid', schemaValidator, getStatsByUser);
-    router.get('/users', getStats);
+    router.get('/users', schemaValidator, getStats);
+    router.get('/words', schemaValidator, getAcurrateWords);
     return router;
 }

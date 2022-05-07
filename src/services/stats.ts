@@ -1,9 +1,11 @@
 import { dataSource } from '../database/connection';
 import { User } from '../entities/user';
 import { Round } from '../entities/round';
+import { Word } from '../entities/word';
 
 const userRepository = dataSource.getRepository(User);
 const roundRepository = dataSource.getRepository(Round);
+const wordRepository = dataSource.getRepository(Word);
 
 export async function getStatsByUserUuid(userUuid: string) {
     const user = await userRepository.findOneBy({ uuid: userUuid });
@@ -36,5 +38,23 @@ export async function getGlobalStats(page: number, limit: number) {
         .take(limit)
         .getRawMany();
     return bestPlayers;
+}
 
+
+export async function getMostAcurrateWords(page: number, limit: number) {
+
+    const acurrateWords = await wordRepository.createQueryBuilder('words')
+        .select('word')
+        .addSelect(subQuery => {
+            return subQuery
+                .select('COUNT(*)')
+                .from(Round, 'rounds')
+                .where('rounds.word_uuid = words.uuid')
+                .andWhere('rounds.winner = true')
+        }, 'acurrate')
+        .orderBy('acurrate', 'DESC')
+        .skip(page)
+        .take(limit)
+        .getRawMany();
+    return acurrateWords;
 }

@@ -4,12 +4,13 @@ const getStatsByUser: Joi.ObjectSchema = Joi.object().keys({
     uuid: Joi.string().uuid().required()
 });
 
-const getStats = Joi.object().keys({
+const pagination = Joi.object().keys({
     page: Joi.number().integer().min(0).optional(),
     limit: Joi.number().integer().min(0).optional()
 });
 
 export const statsSchema = {
     'GET/stats/users/:uuid': getStatsByUser,
-    'GET/stats/users': getStats
+    'GET/stats/users': pagination,
+    'GET/stats/words': pagination,
 }
