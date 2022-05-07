@@ -57,7 +57,7 @@ export async function updateRound(userUuid: string, roundUuid: string, word: str
         word = word.toUpperCase();
 
         let isCorrect = false;
-        let letters: any[] = [] as any;
+        const letters: any[] = [] as any;
 
         if (word === correctWord) {
             round.winner = true;
@@ -89,5 +89,5 @@ export async function updateRound(userUuid: string, roundUuid: string, word: str
 }
 
 function mapLetters(letters: string[], value: number) {
-    return letters.map((l) => { return { letter: l, value: value } });
+    return letters.map((l) => { return { letter: l, value } });
 }

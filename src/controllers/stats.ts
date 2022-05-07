@@ -19,8 +19,8 @@ export async function getStatsByUser(req: Request, res: Response, next: NextFunc
 export async function getStats(req: Request, res: Response, next: NextFunction) {
     try {
         const { page, limit } = req.query;
-        const p = page ? parseInt(page as string) : 0;
-        const l = limit ? parseInt(limit as string) : 10;
+        const p = page ? Number(page) : 0;
+        const l = limit ? Number(limit) : 10;
         const result = await getGlobalStats(p, l);
         if (result) {
             return res.status(200).send({ success: true, data: result, message: 'OK' });
@@ -35,8 +35,8 @@ export async function getStats(req: Request, res: Response, next: NextFunction) 
 export async function getAcurrateWords(req: Request, res: Response, next: NextFunction) {
     try {
         const { page, limit } = req.query;
-        const p = page ? parseInt(page as string) : 0;
-        const l = limit ? parseInt(limit as string) : 10;
+        const p = page ? Number(page) : 0;
+        const l = limit ? Number(limit) : 10;
         const result = await getMostAcurrateWords(p, l);
         if (result) {
             return res.status(200).send({ success: true, data: result, message: 'OK' });
