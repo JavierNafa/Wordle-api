@@ -1,0 +1,322 @@
+{
+	"info": {
+		"_postman_id": "7cdfb337-53f0-44ca-98db-3091c4aa1c5b",
+		"name": "DD3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"test3\",\r\n    \"password\":\"test123434\",\r\n    \"firstName\":\"test\",\r\n    \"lastName\":\"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"access_token\", jsonData.data.accessToken);\r",
+									"postman.setEnvironmentVariable(\"refresh_token\", jsonData.data.refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"test3\",\r\n    \"password\":\"test123434\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/auth/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"access_token\", jsonData.data.accessToken);\r",
+									"postman.setEnvironmentVariable(\"refresh_token\", jsonData.data.refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refreshToken\":\"{{refresh_token}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/auth/refresh",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Round",
+			"item": [
+				{
+					"name": "Start Round",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"round_uuid\", jsonData.data.uuid);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/rounds/start",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"rounds",
+								"start"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Make Attempt",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"word\":\"abate\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/rounds/attempts/:uuid",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"rounds",
+								"attempts",
+								":uuid"
+							],
+							"variable": [
+								{
+									"key": "uuid",
+									"value": "{{round_uuid}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Stats",
+			"item": [
+				{
+					"name": "Get User Stats",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/stats/users/:uuid",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"stats",
+								"users",
+								":uuid"
+							],
+							"variable": [
+								{
+									"key": "uuid",
+									"value": "26c0c100-93b0-4881-b239-86b30086bf51"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Global Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/stats/users?limit=10&page=0",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"stats",
+								"users"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Most Accurrate Words",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/stats/words?limit=10&page=0",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"stats",
+								"words"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
